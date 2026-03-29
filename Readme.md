@@ -105,7 +105,7 @@ This automatically computes:
 
 ## Cutoff Frequency Extraction
 
-![Bode Plot](Doc/acLTSPICEanalysis.png)
+![Bode Plot](Doc/LTSPICEcursor.png)
 
 ### Method 1 – Visual (PLECS)
 
@@ -136,3 +136,105 @@ graph TD
 
 ---
 
+## Principle of Operation
+
+A first-order RC low-pass filter allows low-frequency signals to pass while attenuating high-frequency components. This behavior arises from the frequency-dependent impedance of the capacitor.
+
+The impedance of the capacitor is given by:
+
+`X_c = 1 / (2π f C)`
+
+where:
+
+* `f `is the signal frequency
+* `C `is the capacitance
+
+---
+
+## Frequency-Dependent Behavior
+
+### Low-Frequency Regime
+
+At low frequencies (`f → 0`):
+
+`X_c → ∞`
+
+The capacitor behaves as an open circuit. As a result, very little current flows through the capacitor, and the output voltage across the capacitor is approximately equal to the input voltage:
+
+`V_out ≈ V_in`
+
+Thus, low-frequency signals pass through the circuit with minimal attenuation.
+
+---
+
+### High-Frequency Regime
+
+At high frequencies (`f → ∞`):
+
+`X_c → 0`
+
+The capacitor behaves as a short circuit to ground. Most of the input signal current is diverted through the capacitor, and the output voltage becomes very small:
+
+`V_out ≈ 0`
+
+Thus, high-frequency signals are strongly attenuated.
+
+---
+
+## Transfer Function
+
+The circuit can be analyzed as a voltage divider composed of a resistor and a frequency-dependent impedance:
+
+`V_out = V_in × (Z_c / (R + Z_c))`
+
+Substituting `Z_c = 1 / (jωC) `with `ω = 2πf`, the transfer function becomes:
+
+`H(jω) = V_out / V_in = 1 / (1 + jωRC)`
+
+---
+
+## Cutoff Frequency
+
+The cutoff frequency is defined as the point where the magnitude of the output drops to `1/√2 `of the input (corresponding to -3 dB). This occurs when the magnitudes of the resistor and capacitor impedances are equal:
+
+`|Z_c| = R`
+
+Solving for frequency gives:
+
+`f_c = 1 / (2πRC)`
+
+At this frequency:
+
+* The output magnitude is reduced by a factor of `1/√2`
+* The phase shift is `-45°`
+
+---
+
+## Physical Interpretation
+
+The capacitor stores and releases energy in the form of an electric field. Its ability to charge and discharge depends on how quickly the input signal changes:
+
+* For slow variations (low frequencies), the capacitor has sufficient time to charge and discharge gradually, resulting in minimal current flow and little impact on the signal.
+* For rapid variations (high frequencies), the capacitor continuously charges and discharges, drawing significant current and effectively shunting the signal to ground.
+
+This behavior causes the circuit to act as a frequency-dependent filter, passing low-frequency components while suppressing high-frequency ones.
+
+---
+
+## High-Frequency Attenuation
+
+At frequencies much higher than the cutoff (`f >> f_c`), the magnitude of the transfer function decreases approximately as:
+
+'|H(jω)| ≈ 1 / (ωRC)'
+
+In logarithmic (dB) scale:
+
+`20 log10 |H(jω)| ≈ -20 log10(f)`
+
+This corresponds to a slope of:
+
+`-20 dB/decade`
+
+which is characteristic of a first-order low-pass filter.
+
+---
