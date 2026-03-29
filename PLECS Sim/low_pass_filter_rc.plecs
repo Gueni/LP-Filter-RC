@@ -3,7 +3,7 @@ Plecs {
   Version       "4.9"
   CircuitModel  "ContStateSpace"
   StartTime     "0.0"
-  TimeSpan      "1e-3"
+  TimeSpan      "1"
   Timeout       ""
   Solver        "auto"
   MaxStep       "1e-6"
@@ -28,9 +28,9 @@ Plecs {
   AlgebraicLoopWithStateMachineMsg "3"
   AssertionAction "1"
   FixedPointDatatypeOverride "1"
-  InitializationCommands "Cap_dict = struct();\n\n\nCap_dict.Cap_s  = 1e-6\nCa"
-"p_dict.Resr_s = 1e-3\nCap_dict.Lesl_s = 1e-9\nCap_dict.Npara  = 1\nCap_dict.N"
-"seri  = 1\nCap_dict.Vinit  = 0\nCap_dict.Iinit  = 0\n\nR0\t\t\t\t\t = 1000"
+  InitializationCommands "Cap_dict = struct();\n\n\nCap_dict.Cap_s  = 0.1e-6\n"
+"Cap_dict.Resr_s = 0\nCap_dict.Lesl_s = 0\nCap_dict.Npara  = 1\nCap_dict.Nseri"
+"  = 1\nCap_dict.Vinit  = 0\nCap_dict.Iinit  = 0\n\nR0\t\t\t\t\t = 10e3"
   InitialState  "1"
   SystemState   ""
   TaskingMode   "1"
@@ -55,7 +55,7 @@ Plecs {
   ScriptsDialogGeometry ""
   ScriptsDialogSplitterPos "0"
   Schematic {
-    Location      [0, 23; 1920, 989]
+    Location      [0, 24; 1920, 990]
     ZoomFactor    1.14437
     SliderPosition [0, 0]
     ShowBrowser   off
@@ -77,7 +77,7 @@ Plecs {
     Component {
       Type          Reference
       SrcComponent  "Passives/C"
-      Name          "C"
+      Name          "C1"
       Show          on
       Position      [385, 195]
       Direction     left
@@ -106,21 +106,6 @@ Plecs {
       }
     }
     Component {
-      Type          DCVoltageSource
-      Name          "V_dc"
-      Show          on
-      Position      [145, 200]
-      Direction     down
-      Flipped       on
-      LabelPosition east
-      CommentOut    DisabledOpenCircuit
-      Parameter {
-        Variable      "V"
-        Value         "5"
-        Show          off
-      }
-    }
-    Component {
       Type          PlecsProbe
       Name          "Probe"
       Show          off
@@ -129,164 +114,19 @@ Plecs {
       Flipped       off
       LabelPosition south
       Probe {
-        Component     "V_dc"
+        Component     "V1"
         Path          ""
-        Signals       {"Source power", "Source voltage", "Source current"}
-      }
-      Probe {
-        Component     "V_ac"
-        Path          ""
-        Signals       {"Source voltage", "Source current", "Source power"}
+        Signals       {"Source current", "Source voltage"}
       }
       Probe {
         Component     "R1"
         Path          ""
-        Signals       {"Resistor power", "Resistor voltage", "Resistor current"}
+        Signals       {"Resistor voltage", "Resistor current"}
       }
       Probe {
-        Component     "C"
+        Component     "C1"
         Path          ""
-        Signals       {"Capacitor Dissipation", "Capacitor Voltage", "Capacito"
-"r Current"}
-      }
-    }
-    Component {
-      Type          Scope
-      Name          "Scope"
-      Show          off
-      Position      [680, 175]
-      Direction     up
-      Flipped       off
-      LabelPosition south
-      Location      [0, 24; 1920, 1039]
-      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAAIEA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGMA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABjAP///wAAAAMAAAeAAAABCfw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAB4AAAABEAP///wAAB4AAAALJAAAA"
-"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
-"AAAAA=="
-      SavedViews    "AAAAAgAAAAA="
-      HeaderState   "{\"DefaultSecSize\":100,\"FirstSecSize\":292,\"Labels\":["
-"],\"VisualIdxs\":[]}"
-      PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
-"AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-"=="
-      Axes          "3"
-      TimeRange     "0"
-      ScrollingMode "1"
-      SingleTimeAxis "1"
-      Open          "0"
-      Ts            "-1"
-      SampleLimit   "0"
-      XAxisLabel    "Time / s"
-      ShowLegend    "2"
-      Axis {
-        Name          "source"
-        AutoScale     1
-        MinValue      0
-        MaxValue      1
-        Signals       {}
-        SignalTypes   [ ]
-        Untangle      0
-        KeepBaseline  off
-        BaselineValue 0
-      }
-      Axis {
-        Name          "Resistor"
-        AutoScale     1
-        MinValue      0
-        MaxValue      1
-        Signals       {}
-        SignalTypes   [ ]
-        Untangle      0
-        KeepBaseline  off
-        BaselineValue 0
-      }
-      Axis {
-        Name          "Capacitor"
-        AutoScale     1
-        MinValue      0
-        MaxValue      1
-        Signals       {}
-        SignalTypes   [ ]
-        Untangle      0
-        KeepBaseline  off
-        BaselineValue 0
-      }
-      Fourier {
-        SingleXAxis       on
-        AxisLabel         "Frequency / Hz"
-        Scaling           0
-        PhaseDisplay      0
-        ShowFourierLegend off
-        Axis {
-          Name          ""
-          AutoScale     1
-          MinValue      0
-          MaxValue      1
-          Signals       {}
-          Untangle      0
-          KeepBaseline  off
-          BaselineValue 0
-        }
-        Axis {
-          Name          ""
-          AutoScale     1
-          MinValue      0
-          MaxValue      1
-          Signals       {}
-          Untangle      0
-          KeepBaseline  off
-          BaselineValue 0
-        }
-        Axis {
-          Name          ""
-          AutoScale     1
-          MinValue      0
-          MaxValue      1
-          Signals       {}
-          Untangle      0
-          KeepBaseline  off
-          BaselineValue 0
-        }
-      }
-    }
-    Component {
-      Type          SignalDemux
-      Name          "Demux"
-      Show          off
-      Position      [590, 175]
-      Direction     right
-      Flipped       on
-      LabelPosition south
-      Parameter {
-        Variable      "Width"
-        Value         "[3 3 3]"
-        Show          off
-      }
-    }
-    Component {
-      Type          ACVoltageSource
-      Name          "V_ac"
-      Show          on
-      Position      [210, 200]
-      Direction     down
-      Flipped       on
-      LabelPosition east
-      Parameter {
-        Variable      "V"
-        Value         "5"
-        Show          off
-      }
-      Parameter {
-        Variable      "w"
-        Value         "2*pi*50"
-        Show          off
-      }
-      Parameter {
-        Variable      "phi"
-        Value         "0"
-        Show          off
+        Signals       {"Capacitor Current", "Capacitor Voltage"}
       }
     }
     Component {
@@ -306,7 +146,7 @@ Plecs {
     Component {
       Type          Reference
       SrcComponent  "Passives/C"
-      Name          "C1"
+      Name          "C2"
       Show          on
       Position      [385, 525]
       Direction     left
@@ -352,7 +192,7 @@ Plecs {
       Type          SmallSignalResponse
       Name          "Response"
       Show          on
-      Position      [550, 525]
+      Position      [590, 525]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -395,70 +235,217 @@ Plecs {
         Show          off
       }
     }
+    Component {
+      Type          Constant
+      Name          "R"
+      Show          on
+      Position      [195, 670]
+      Direction     right
+      Flipped       off
+      LabelPosition west
+      Frame         [-50, -10; 50, 10]
+      Parameter {
+        Variable      "Value"
+        Value         "10e3"
+        Show          off
+      }
+      Parameter {
+        Variable      "DataType"
+        Value         "10"
+        Show          off
+      }
+    }
+    Component {
+      Type          Constant
+      Name          "C"
+      Show          on
+      Position      [195, 700]
+      Direction     right
+      Flipped       off
+      LabelPosition west
+      Frame         [-50, -10; 50, 10]
+      Parameter {
+        Variable      "Value"
+        Value         "0.1e-6"
+        Show          off
+      }
+      Parameter {
+        Variable      "DataType"
+        Value         "10"
+        Show          off
+      }
+    }
+    Component {
+      Type          Function
+      Name          "1/(2*pi*u[1]*u[2])"
+      Show          on
+      Position      [370, 685]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Frame         [-20, -10; 20, 10]
+      Parameter {
+        Variable      "f(u)"
+        Value         "1/(2*pi*u[1]*u[2])"
+        Show          off
+      }
+    }
+    Component {
+      Type          SignalMux
+      Name          "Mux"
+      Show          off
+      Position      [300, 685]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Width"
+        Value         "2"
+        Show          off
+      }
+    }
+    Component {
+      Type          Display
+      Name          "Fc"
+      Show          on
+      Position      [490, 685]
+      Direction     up
+      Flipped       off
+      LabelPosition east
+      Frame         [-56, -11; 56, 11]
+      Parameter {
+        Variable      "Notation"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "Precision"
+        Value         "12"
+        Show          off
+      }
+    }
+    Component {
+      Type          PulseGenerator
+      Name          "Pulse\nGenerator"
+      Show          off
+      Position      [125, 195]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Hi"
+        Value         "5"
+        Show          off
+      }
+      Parameter {
+        Variable      "Lo"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "f"
+        Value         "10"
+        Show          off
+      }
+      Parameter {
+        Variable      "DutyCycle"
+        Value         "0.5"
+        Show          off
+      }
+      Parameter {
+        Variable      "Delay"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "DataType"
+        Value         "10"
+        Show          off
+      }
+    }
+    Component {
+      Type          VoltageSource
+      Name          "V1"
+      Show          on
+      Position      [190, 195]
+      Direction     down
+      Flipped       on
+      LabelPosition east
+      Parameter {
+        Variable      "DiscretizationBehavior"
+        Value         "2"
+        Show          off
+      }
+      Parameter {
+        Variable      "StateSpaceInlining"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Scope
+      Name          "Scope"
+      Show          off
+      Position      [615, 175]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Location      [0, 24; 1920, 1030]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
+"G0AQQByAGUAYQAAAAAA/////wAAADEA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGMA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABjAP///wAAAAMAAAeAAAAAuPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAB4AAAABEAP///wAAB4AAAAMRAAAA"
+"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
+"AAAAA=="
+      SavedViews    "AAAAAgAAAAA="
+      HeaderState   "{\"DefaultSecSize\":100,\"FirstSecSize\":174,\"Labels\":["
+"],\"VisualIdxs\":[]}"
+      PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      Axes          "1"
+      TimeRange     "0.0"
+      ScrollingMode "1"
+      SingleTimeAxis "1"
+      Open          "0"
+      Ts            "-1"
+      SampleLimit   "0"
+      XAxisLabel    "Time / s"
+      ShowLegend    "1"
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Fourier {
+        SingleXAxis       on
+        AxisLabel         "Frequency / Hz"
+        Scaling           0
+        PhaseDisplay      0
+        ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+      }
+    }
     Connection {
       Type          Wire
       SrcComponent  "R1"
       SrcTerminal   2
       Points        [385, 155]
-      DstComponent  "C"
+      DstComponent  "C1"
       DstTerminal   2
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Probe"
-      SrcTerminal   1
-      DstComponent  "Demux"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Demux"
-      SrcTerminal   2
-      DstComponent  "Scope"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Demux"
-      SrcTerminal   3
-      DstComponent  "Scope"
-      DstTerminal   2
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Demux"
-      SrcTerminal   4
-      DstComponent  "Scope"
-      DstTerminal   3
-    }
-    Connection {
-      Type          Wire
-      SrcComponent  "V_dc"
-      SrcTerminal   1
-      Points        [145, 155; 210, 155]
-      Branch {
-        DstComponent  "R1"
-        DstTerminal   1
-      }
-      Branch {
-        DstComponent  "V_ac"
-        DstTerminal   1
-      }
-    }
-    Connection {
-      Type          Wire
-      SrcComponent  "V_dc"
-      SrcTerminal   2
-      Points        [145, 235; 210, 235]
-      Branch {
-        Points        [385, 235]
-        DstComponent  "C"
-        DstTerminal   1
-      }
-      Branch {
-        DstComponent  "V_ac"
-        DstTerminal   2
-      }
     }
     Connection {
       Type          Wire
@@ -466,7 +453,7 @@ Plecs {
       SrcTerminal   2
       Points        [385, 485]
       Branch {
-        DstComponent  "C1"
+        DstComponent  "C2"
         DstTerminal   2
       }
       Branch {
@@ -477,7 +464,7 @@ Plecs {
     }
     Connection {
       Type          Wire
-      SrcComponent  "C1"
+      SrcComponent  "C2"
       SrcTerminal   1
       Points        [385, 565]
       Branch {
@@ -513,6 +500,66 @@ Plecs {
       DstComponent  "V"
       DstTerminal   3
     }
+    Connection {
+      Type          Signal
+      SrcComponent  "R"
+      SrcTerminal   1
+      Points        [270, 670; 270, 680]
+      DstComponent  "Mux"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "C"
+      SrcTerminal   1
+      Points        [270, 700; 270, 690]
+      DstComponent  "Mux"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Mux"
+      SrcTerminal   1
+      DstComponent  "1/(2*pi*u[1]*u[2])"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "1/(2*pi*u[1]*u[2])"
+      SrcTerminal   2
+      DstComponent  "Fc"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Pulse\nGenerator"
+      SrcTerminal   1
+      DstComponent  "V1"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "V1"
+      SrcTerminal   1
+      Points        [190, 155]
+      DstComponent  "R1"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "C1"
+      SrcTerminal   1
+      Points        [385, 240; 190, 240]
+      DstComponent  "V1"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Probe"
+      SrcTerminal   1
+      DstComponent  "Scope"
+      DstTerminal   1
+    }
     RectangleAnnotation {
       Position     [415, 180]
       Width        690
@@ -537,9 +584,8 @@ Plecs {
     } 
     Annotation {
       Name          "<html><body>\n<p><span style=\" font-size:13px; font-weig"
-"ht:700; color:#55ff55;\">Parametric Sweep / Sensitivity / WCA</span></p></bod"
-"y></html>"
-      Position      [210, 45]
+"ht:700; color:#55ff55;\">Parametric Sweep</span></p></body></html>"
+      Position      [135, 45]
     } 
     RectangleAnnotation {
       Position     [215, 45]
@@ -579,17 +625,17 @@ Plecs {
     StartTime     "0"
     Tolerance     "1e-4"
     MaxIter       "20"
-    FrequencyRange "[1 1e7]"
+    FrequencyRange "[1 1e6]"
     FrequencyScale "2"
     AdditionalFreqs "[]"
-    AmplitudeRange "1e-3"
-    NumPoints     "21"
+    AmplitudeRange "1"
+    NumPoints     "100"
     Perturbation  "Perturbation"
     Response      "Response"
     JacobianPerturbation "1e-4"
     JacobianCalculation "2"
-    InitCycles    "0"
+    InitCycles    "10"
     MaxNumberOfThreads "-1"
   }
 }
-DemoSignature "HYzkg3K8ap2qkgIKoWCqMPqLqs42+UkK7vw/IiIv8uE="
+DemoSignature "+xWrUDki7bickNWTWGU15KnDgyKaCVWi3YUB6Zcx0yQ="
