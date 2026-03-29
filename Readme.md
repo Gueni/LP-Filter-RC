@@ -225,7 +225,7 @@ This behavior causes the circuit to act as a frequency-dependent filter, passing
 
 At frequencies much higher than the cutoff (`f >> f_c`), the magnitude of the transfer function decreases approximately as:
 
-'|H(jω)| ≈ 1 / (ωRC)'
+`|H(jω)| ≈ 1 / (ωRC)`
 
 In logarithmic (dB) scale:
 
@@ -243,7 +243,7 @@ which is characteristic of a first-order low-pass filter.
 
 When analyzing a circuit in the frequency domain, such as with a Bode plot, the response is described by a complex transfer function:
 
-' H(jω) = V_out / V_in '
+`H(jω) = V_out / V_in`
 
 This quantity contains two essential pieces of information:
 
@@ -256,22 +256,22 @@ This quantity contains two essential pieces of information:
 
 The magnitude represents the ratio of output amplitude to input amplitude:
 
-' |H(jω)| = |V_out| / |V_in| '
+`|H(jω)| = |V_out| / |V_in|`
 
 It is often expressed in decibels (dB):
 
-' Gain(dB) = 20 log10(|V_out / V_in|) '
+`Gain(dB) = 20 log10(|V_out / V_in|)`
 
 ###  Meaning
 
-* If ' |H| = 1 ' (0 dB): the signal passes unchanged
-* If ' |H| < 1 ': the signal is attenuated
-* If ' |H| > 1 ': the signal is amplified
+* If ` |H| = 1 ` (0 dB): the signal passes unchanged
+* If ` |H| < 1 `       : the signal is attenuated
+* If ` |H| > 1 `       : the signal is amplified
 
 In the RC low-pass filter:
 
-* Low frequencies → ' |H| ≈ 1 ' → signal passes
-* High frequencies → ' |H| ≈ 0 ' → signal is suppressed
+* Low frequencies  →  `|H| ≈ 1 ` → signal passes
+* High frequencies → `|H| ≈ 0 ` → signal is suppressed
 
 ### Interpretation
 
@@ -287,7 +287,7 @@ Magnitude directly corresponds to **signal strength**:
 
 The phase represents the shift in time between input and output signals:
 
-' φ(ω) = angle(H(jω)) '
+`φ(ω) = angle(H(jω))`
 
 It is measured in degrees or radians.
 
@@ -297,7 +297,7 @@ It is measured in degrees or radians.
 
 A phase shift corresponds to a **time delay**:
 
-' Δt = φ / (2πf) '
+`Δt = φ / (2πf)`
 
 So the output signal is effectively a delayed version of the input.
 
@@ -307,13 +307,13 @@ So the output signal is effectively a delayed version of the input.
 
 In an RC low-pass filter:
 
-* At low frequency → ' φ ≈ 0° '
+* At low frequency → `φ ≈ 0°`
   → output follows input almost instantly
 
-* At cutoff frequency → ' φ = -45° '
+* At cutoff frequency → `φ = -45°`
   → output is delayed by 1/8 of a period
 
-* At high frequency → ' φ ≈ -90° '
+* At high frequency → `φ ≈ -90°`
   → output is significantly delayed and reduced
 
 ---
@@ -334,6 +334,6 @@ In the RC circuit:
 
 At any frequency:
 
-' V_out(t) = |H| × V_in(t - Δt) '
+`V_out(t) = |H| × V_in(t - Δt)`
 
 ---
