@@ -238,3 +238,102 @@ This corresponds to a slope of:
 which is characteristic of a first-order low-pass filter.
 
 ---
+
+## Interpretation of Magnitude and Phase in Real Circuits
+
+When analyzing a circuit in the frequency domain, such as with a Bode plot, the response is described by a complex transfer function:
+
+' H(jω) = V_out / V_in '
+
+This quantity contains two essential pieces of information:
+
+* **Magnitude** → how much the signal amplitude changes
+* **Phase** → how much the signal is delayed in time
+
+---
+
+## Magnitude (Gain)
+
+The magnitude represents the ratio of output amplitude to input amplitude:
+
+' |H(jω)| = |V_out| / |V_in| '
+
+It is often expressed in decibels (dB):
+
+' Gain(dB) = 20 log10(|V_out / V_in|) '
+
+###  Meaning
+
+* If ' |H| = 1 ' (0 dB): the signal passes unchanged
+* If ' |H| < 1 ': the signal is attenuated
+* If ' |H| > 1 ': the signal is amplified
+
+In the RC low-pass filter:
+
+* Low frequencies → ' |H| ≈ 1 ' → signal passes
+* High frequencies → ' |H| ≈ 0 ' → signal is suppressed
+
+### Interpretation
+
+Magnitude directly corresponds to **signal strength**:
+
+* Voltage amplitude in analog circuits
+* Power transmission in RF systems
+* Signal level in audio systems
+
+---
+
+## Phase
+
+The phase represents the shift in time between input and output signals:
+
+' φ(ω) = angle(H(jω)) '
+
+It is measured in degrees or radians.
+
+---
+
+## Time-Domain Meaning of Phase
+
+A phase shift corresponds to a **time delay**:
+
+' Δt = φ / (2πf) '
+
+So the output signal is effectively a delayed version of the input.
+
+---
+
+## Physical Meaning
+
+In an RC low-pass filter:
+
+* At low frequency → ' φ ≈ 0° '
+  → output follows input almost instantly
+
+* At cutoff frequency → ' φ = -45° '
+  → output is delayed by 1/8 of a period
+
+* At high frequency → ' φ ≈ -90° '
+  → output is significantly delayed and reduced
+
+---
+
+## Why Phase Appears
+
+Phase shift is caused by **energy storage elements**:
+
+* Capacitors store energy in electric fields
+* Inductors store energy in magnetic fields
+
+In the RC circuit:
+
+* The capacitor takes time to charge and discharge
+* This creates a delay between input voltage and output voltage
+
+---
+
+At any frequency:
+
+' V_out(t) = |H| × V_in(t - Δt) '
+
+---
