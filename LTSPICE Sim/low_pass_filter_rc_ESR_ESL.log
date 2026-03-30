@@ -1,0 +1,18 @@
+LTspice 26.0.1 for Windows
+Circuit: D:\WORKSPACE\3.EEE\0 Low Pass Filter RC\LTSPICE Sim\low_pass_filter_rc_ESR_ESL.net
+Start Time: Mon Mar 30 19:21:12 2026
+solver = Normal
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = trap
+.OP point found by inspection.
+.OP point found by inspection.
+Total elapsed time: 0.042 seconds.
+
+Files loaded:
+D:\WORKSPACE\3.EEE\0 Low Pass Filter RC\LTSPICE Sim\low_pass_filter_rc_ESR_ESL.net
+
+D:\WORKSPACE\3.EEE\0 Low Pass Filter RC\LTSPICE Sim\low_pass_filter_rc_ESR_ESL.net(22): Voltage not found.
+.MEAS AC max_v_out MAX mag(V(out))
+                           ^^^^^^

@@ -337,3 +337,278 @@ At any frequency:
 `V_out(t) = |H| × V_in(t - Δt)`
 
 ---
+## Effect of Capacitor ESR (Non-Ideal Behavior)
+
+![Bode Plot with ESR](Doc/Withesr.png)
+
+### Non-Ideal Capacitor Model
+
+In real circuits, a capacitor includes an **Equivalent Series Resistance (ESR)**.  
+The impedance becomes:
+
+` Z_c = ESR + 1 / (jωC) `
+
+---
+
+### Modified Transfer Function
+
+The circuit is now a voltage divider between ` R ` and ` Z_c `:
+
+` H(jω) = V_out / V_in = Z_c / (R + Z_c) `
+
+Substituting:
+
+` H(jω) = (ESR + 1/(jωC)) / (R + ESR + 1/(jωC)) `
+
+Rewriting:
+
+` H(jω) = (jωC·ESR + 1) / (jωC(R + ESR) + 1) `
+
+---
+
+### Pole–Zero Structure
+
+Unlike the ideal RC filter, the ESR introduces a **zero**:
+
+- Pole:
+  
+  ` f_p = 1 / (2π (R + ESR) C) `
+
+- Zero:
+  
+  ` f_z = 1 / (2π ESR · C) `
+
+---
+
+### Frequency Response Behavior
+
+#### Low Frequency
+
+` H ≈ 1 `
+
+The circuit behaves like an ideal low-pass filter.
+
+---
+
+#### Around Cutoff
+
+The cutoff frequency is slightly shifted:
+
+` f_c ≈ 1 / (2π (R + ESR) C) `
+
+If ` ESR << R `, the effect is minimal.
+
+---
+
+#### High Frequency
+
+The capacitor behaves like a resistor:
+
+` Z_c ≈ ESR `
+
+So the circuit becomes a resistive divider:
+
+` H(∞) = ESR / (R + ESR) `
+
+This explains why the magnitude **does not go to zero**.
+
+---
+
+### Explanation of the Simulation
+
+From the plot:
+
+- The ideal filter continues decreasing at **-20 dB/dec**
+- The non-ideal filter:
+  - Follows the same slope initially
+  - Then **flattens at high frequency**
+
+The flat level corresponds to:
+
+` 20 log10(ESR / (R + ESR)) `
+
+---
+
+### Phase Behavior
+
+- Ideal filter:
+  
+  ` 0° → -90° `
+
+- With ESR:
+  - Phase decreases initially
+  - Then **returns toward 0° at high frequency**
+
+This occurs because the circuit becomes purely resistive again.
+
+---
+
+### Physical Interpretation
+
+At high frequency:
+
+- The capacitor no longer behaves as a short circuit  
+- It behaves as a **small resistor (ESR)**  
+- The signal is no longer fully shunted to ground  
+
+---
+## Effect of Capacitor ESL and Combined ESR + ESL
+
+![Bode Plot with ESR and ESL](Doc/ESRandESL.png)
+
+### Non-Ideal Capacitor Model (ESR + ESL)
+
+A real capacitor includes both:
+- **ESR (Equivalent Series Resistance)**
+- **ESL (Equivalent Series Inductance)**
+
+The impedance becomes:
+
+` Z_c = ESR + jωL + 1 / (jωC) `
+
+---
+
+## Case 1: ESL Only
+
+### Impedance
+
+` Z_c = jωL + 1 / (jωC) `
+
+---
+
+### Transfer Function
+
+` H(jω) = Z_c / (R + Z_c) `
+
+---
+
+### Key Effect: Resonance
+
+The capacitor and ESL form an LC resonant circuit. The resonance frequency is:
+
+` f_0 = 1 / (2π √(LC)) `
+
+---
+
+### Frequency Behavior
+
+- Low frequency:
+  
+  ` Z_c ≈ 1 / (jωC) → large `  
+  → Normal low-pass behavior
+
+- At resonance:
+  
+  ` ωL = 1 / (ωC) `  
+  → ` Z_c ≈ 0 `  
+  → Output drops to **minimum**
+
+- High frequency:
+  
+  ` Z_c ≈ jωL `  
+  → Output increases again
+
+---
+
+### Simulation Observation
+
+- A **deep notch** appears in the magnitude
+- The filter no longer behaves as a simple low-pass
+- Phase shows a sharp transition around resonance
+
+---
+
+### Physical Interpretation
+
+- At resonance, energy oscillates between:
+  - Electric field (capacitor)
+  - Magnetic field (inductor)
+
+- The impedance becomes very small → signal is strongly shunted to ground
+
+---
+
+## Case 2: ESR + ESL
+
+### Impedance
+
+` Z_c = ESR + jωL + 1 / (jωC) `
+
+---
+
+### Transfer Function
+
+` H(jω) = Z_c / (R + Z_c) `
+
+---
+
+### Key Effects
+
+This combines both previous behaviors:
+
+1. **Resonance (from ESL)**
+2. **Damping (from ESR)**
+3. **High-frequency leakage (from ESR)**
+
+---
+
+### Frequency Behavior
+
+#### Low Frequency
+
+` H ≈ 1 `  
+→ Same as ideal filter
+
+---
+
+#### Around Resonance
+
+- A **notch or dip** appears
+- Less sharp than ESL-only case due to ESR damping
+
+---
+
+#### High Frequency
+
+Capacitor behaves like:
+
+` Z_c ≈ ESR + jωL `
+
+So:
+
+` H(∞) ≈ (ESR + jωL) / (R + ESR + jωL) `
+
+- Output **does not go to zero**
+- Magnitude may **rise after the dip**
+
+---
+
+### Simulation Observation
+
+- The deep notch becomes **shallower**
+- The response **recovers at high frequency**
+- Phase becomes smoother compared to ESL-only
+
+---
+
+## Comparison Summary
+
+| Model        | Behavior |
+|-------------|--------|
+| Ideal C      | Pure low-pass (-20 dB/dec) |
+| ESR only     | Flattens at high frequency |
+| ESL only     | Resonance notch appears |
+| ESR + ESL    | Damped resonance + high-frequency leakage |
+
+---
+
+## Physical Insight
+
+- **ESL dominates high-frequency behavior**
+  - Causes resonance and non-monotonic response
+
+- **ESR provides damping**
+  - Reduces oscillations
+  - Limits peak or depth of resonance
+
+---
